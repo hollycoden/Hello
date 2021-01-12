@@ -1,0 +1,30 @@
+窗口分区
+
+select
+name,
+orderdate,
+cost,
+FIRST_VALUE(orderdate) over(partition by name,month(orderdate) order by orderdate rows between UNBOUNDED PRECEDING and UNBOUNDED FOLLOWING) first_time,
+LAST_VALUE(orderdate) over(partition by name,month(orderdate) order by orderdate rows between UNBOUNDED PRECEDING and UNBOUNDED FOLLOWING) last_time
+from business;
+
+
+select
+name,
+orderdate,
+cost,
+FIRST_VALUE(orderdate) over(partition by name,month(orderdate) order by orderdate) first_time,
+LAST_VALUE(orderdate) over(partition by name,month(orderdate) order by orderdate) last_time
+from business;
+
+
+
+select
+name,
+orderdate,
+cost,
+sum(cost) over(partition by name,month(orderdate)) name_month_cost
+from business;
+
+
+
